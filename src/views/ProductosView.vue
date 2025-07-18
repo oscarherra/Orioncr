@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router'; // Para manejar la URL
+import { useRoute, useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cartStore';
 import { useProductStore } from '@/stores/productStore';
 
@@ -9,21 +9,47 @@ const productStore = useProductStore();
 const route = useRoute();
 const router = useRouter();
 
-// --- LÓGICA DE PAGINACIÓN CON MEMORIA EN URL ---
-const itemsPerPage = 16; // Se mantiene tu cambio de 16 por página
-
-// El estado inicial se lee desde la URL (?page=X), si no existe, es 1
+const itemsPerPage = 16;
 const currentPage = ref(parseInt(route.query.page) || 1);
 
-const totalPages = computed(() => Math.ceil(productStore.products.length / itemsPerPage));
+// --- LÓGICA DE FILTRADO POR CATEGORÍA ---
+
+// 1. Lee la categoría desde la URL (ej: 'anime', 'harry-potter')
+const category = computed(() => route.query.category);
+
+// 2. Crea una lista de productos que SÓLO contiene los de la categoría seleccionada
+const filteredProducts = computed(() => {
+  if (category.value) {
+    return productStore.products.filter(p => p.category === category.value);
+  }
+  return productStore.products; // Si no hay categoría en la URL, muestra todos
+});
+
+// 3. El título de la página ahora es dinámico
+const pageTitle = computed(() => {
+  if (category.value) {
+    // Convierte 'harry-potter' a 'Harry Potter' para el título
+    return category.value
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  return 'Nuestros Pines';
+});
+
+
+// --- LÓGICA DE PAGINACIÓN (ahora basada en la lista filtrada) ---
+
+// 4. El total de páginas y los productos a mostrar dependen de 'filteredProducts'
+const totalPages = computed(() => Math.ceil(filteredProducts.value.length / itemsPerPage));
 
 const paginatedProducts = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  return productStore.products.slice(startIndex, endIndex);
+  return filteredProducts.value.slice(startIndex, endIndex);
 });
 
-// Las funciones de navegación solo cambian el número
+// Funciones de navegación
 function nextPage() { 
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
@@ -35,27 +61,31 @@ function prevPage() {
   }
 }
 
-// Este 'watch' actualiza la URL cada vez que currentPage cambia
+// 5. Watchers para actualizar la URL y reiniciar la página
 watch(currentPage, (newPage) => {
-  router.push({ query: { page: newPage } });
-  window.scrollTo(0, 0); // Opcional: lleva al usuario arriba de la página
+  // Al cambiar de página, mantenemos el filtro de categoría en la URL
+  router.push({ query: { ...route.query, page: newPage } });
+  window.scrollTo(0, 0);
+});
+
+watch(category, () => {
+  // Si cambia la categoría, volvemos a la página 1
+  currentPage.value = 1;
 });
 
 
 // --- FUNCIÓN DE ANIMACIÓN ---
 function addProductToCart(product, event) {
+  // ... (Esta función no cambia)
   cartStore.addItem(product);
-
   const imageContainer = event.target.closest('.product-image-container');
   if (!imageContainer) return;
   const originalImage = imageContainer.querySelector('img');
   if (!originalImage) return;
   const cartIcon = document.querySelector('.cart-icon-button');
   if (!cartIcon) return;
-
   const imageRect = originalImage.getBoundingClientRect();
   const clone = originalImage.cloneNode(true);
-  
   clone.style.position = 'fixed';
   clone.style.left = imageRect.left + 'px';
   clone.style.top = imageRect.top + 'px';
@@ -65,9 +95,7 @@ function addProductToCart(product, event) {
   clone.style.zIndex = '9999';
   clone.style.borderRadius = '50%';
   clone.style.transition = 'all 1s cubic-bezier(0.55, 0, 1, 0.45)';
-
   document.body.appendChild(clone);
-
   const cartRect = cartIcon.getBoundingClientRect();
   setTimeout(() => {
     clone.style.left = (cartRect.left + 10) + 'px';
@@ -76,7 +104,6 @@ function addProductToCart(product, event) {
     clone.style.height = '0px';
     clone.style.opacity = '0';
   }, 10);
-
   setTimeout(() => {
     clone.remove();
   }, 1000);
@@ -85,9 +112,15 @@ function addProductToCart(product, event) {
 
 <template>
   <div class="product-section">
-    <h2>Nuestros Pines</h2>
+    <h2>{{ pageTitle }}</h2>
+
     <div class="product-grid">
-      <div v-for="product in paginatedProducts" :key="product.id" class="product-card">
+      <div v-if="paginatedProducts.length === 0" class="no-products">
+        <p>No se encontraron productos en esta colección.</p>
+        <router-link to="/colecciones" class="back-link">Volver a Colecciones</router-link>
+      </div>
+
+      <div v-else v-for="product in paginatedProducts" :key="product.id" class="product-card">
         <router-link :to="`/producto/${product.id}`" class="product-link">
           <div class="product-image-container">
             <img :src="product.imageUrl" :alt="product.name" />
@@ -105,7 +138,8 @@ function addProductToCart(product, event) {
         </router-link>
       </div>
     </div>
-    <div class="pagination">
+    
+    <div v-if="totalPages > 1" class="pagination">
       <button @click="prevPage" :disabled="currentPage === 1">&lt;</button>
       <span>{{ currentPage }} DE {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage === totalPages">&gt;</button>
@@ -116,7 +150,7 @@ function addProductToCart(product, event) {
 <style scoped>
 .product-section { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
 .product-section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; font-weight: 800; letter-spacing: 1px; }
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 3rem 2rem; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 3rem 2rem; min-height: 40vh; /* Para que el mensaje 'no-products' se vea bien */ }
 .product-card { text-align: left; }
 .product-link { text-decoration: none; color: inherit; display: block; transition: opacity 0.2s ease-in-out; }
 .product-link:hover { opacity: 0.8; }
@@ -132,4 +166,29 @@ function addProductToCart(product, event) {
 .pagination button { background: none; border: 1px solid #ccc; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: background-color 0.2s, border-color 0.2s; }
 .pagination button:hover:not(:disabled) { background-color: #f5f5f5; border-color: #999; }
 .pagination button:disabled { color: #ccc; cursor: not-allowed; }
+
+/* --- NUEVOS ESTILOS --- */
+.no-products {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  color: #777;
+}
+.back-link {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+  .product-section { padding: 0 1rem; }
+}
 </style>

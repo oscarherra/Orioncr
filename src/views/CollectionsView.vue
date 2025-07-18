@@ -1,96 +1,196 @@
 <script setup>
 import { ref } from 'vue';
 
-// En el futuro, podrías obtener esta lista desde una base de datos.
+// Se ha añadido un 'slug' a cada categoría para usarlo en la URL
 const collections = ref([
-  { id: 1, name: 'Animalitos', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Animalitos', path: '/productos' },
-  { id: 2, name: 'Anime', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Anime', path: '/productos' },
-  { id: 3, name: 'Arte', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Arte', path: '/productos' },
-  { id: 4, name: 'Astronomía', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Astronomía', path: '/productos' },
-  { id: 5, name: 'Comida', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Comida', path: '/productos' },
-  { id: 6, name: 'Corazones', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Corazones', path: '/productos' },
-  { id: 7, name: 'Cámaras', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Cámaras', path: '/productos' },
-  { id: 8, name: 'Disney', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Disney', path: '/productos' },
-  { id: 9, name: 'F1', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=F1', path: '/productos' },
-  { id: 10, name: 'Farmacia', imageUrl: 'https://placehold.co/300x300/EFEFEF/333?text=Farmacia', path: '/productos' },
+  { 
+    id: 1, 
+    name: 'Anime', 
+    slug: 'anime',
+    description: 'Lleva tus personajes favoritos con diseños exclusivos y de calidad. ¡Ideal para verdaderos fans del anime!',
+    imageUrl: new URL('../assets/img/kimetsu personajes.jpeg', import.meta.url).href
+  },
+  { 
+    id: 2, 
+    name: 'Harry Potter', 
+    slug: 'harry-potter',
+    description: '¿Eres Gryffindor, Slytherin, Hufflepuff o Ravenclaw? Encuentra la magia en nuestra colección especial de Harry Potter.',
+    imageUrl: new URL('../assets/img/Coleccion escudos HP.jpeg', import.meta.url).href
+  },
+  { 
+    id: 3, 
+    name: 'Sanrio', 
+    slug: 'sanrio',
+    description: 'Hello Kitty, Kuromi, Cinnamoroll y todos tus amigos de Sanrio están aquí. ¡Descubre los pines más tiernos!',
+    imageUrl: new URL('../assets/img/Collecion sanrio.jpeg', import.meta.url).href
+  },
+  { 
+    id: 4, 
+    name: 'Hora de Aventura', 
+    slug: 'hora-de-aventura',
+    description: '¡Es hora de la aventura! Acompaña a Finn y Jake en un viaje matemático con estos pines de la Tierra de Ooo.',
+    imageUrl: new URL('../assets/img/Collecion bubble tea hora de aventura.jpeg', import.meta.url).href
+  },
+  { 
+    id: 5, 
+    name: 'Studio Ghibli', 
+    slug: 'studio-ghibli',
+    description: 'Sumérgete en los mundos mágicos de Hayao Miyazaki con diseños inspirados en Totoro, Chihiro y más.',
+    imageUrl: new URL('../assets/img/collecion stdudio.jpeg', import.meta.url).href
+  },
+  { 
+    id: 6, 
+    name: 'Gatos', 
+    slug: 'gatos',
+    description: 'Para los amantes de los felinos. Encuentra desde gatitos adorables hasta los memes más famosos de internet.',
+    imageUrl: new URL('../assets/img/gatos collecion.jpeg', import.meta.url).href
+  },
+  { 
+    id: 7, 
+    name: 'Humor', 
+    slug: 'humor',
+    description: 'Pines con frases ingeniosas, memes y diseños divertidos para sacarle una sonrisa a cualquiera.',
+    imageUrl: new URL('../assets/img/humor.jpeg', import.meta.url).href
+  },
+  { 
+    id: 8, 
+    name: 'Star Wars', 
+    slug: 'star-wars',
+    description: 'Que la fuerza te acompañe. Elige tu lado con nuestra colección de una galaxia muy, muy lejana.',
+    imageUrl: new URL('../assets/img/Collecion star wars.jpeg', import.meta.url).href
+  },
+  { 
+    id: 9, 
+    name: 'Música', 
+    slug: 'musica',
+    description: 'Lleva a tus bandas y artistas favoritos contigo. Desde rock clásico hasta los íconos del pop actual.',
+    imageUrl: new URL('../assets/img/Collecion rock.jpeg', import.meta.url).href
+  },
+  { 
+    id: 10, 
+    name: 'Psicología', 
+    slug: 'psicologia',
+    description: 'Explora los conceptos de la mente y el bienestar con nuestra colección de pines para psicólogos y entusiastas.',
+    imageUrl: new URL('../assets/img/Collecion Psicologia.jpeg', import.meta.url).href
+  }
 ]);
 </script>
 
 <template>
   <div class="collections-page">
-    <h1>Colecciones</h1>
-    <div class="collections-grid">
-      <router-link
-        v-for="collection in collections"
-        :key="collection.id"
-        :to="collection.path"
-        class="collection-card"
-      >
-        <img :src="collection.imageUrl" :alt="collection.name" />
-        <p>{{ collection.name }} →</p>
-      </router-link>
-    </div>
+    <section 
+      v-for="(collection, index) in collections" 
+      :key="collection.id"
+      class="collection-block"
+      :class="{ 'alt-background': index % 2 !== 0 }"
+    >
+      <div class="collection-content-wrapper" :class="{ 'reverse-layout': index % 2 !== 0 }">
+        
+        <div class="image-container">
+          <div class="image-frame">
+            <img :src="collection.imageUrl" :alt="collection.name" />
+          </div>
+        </div>
+
+        <div class="text-container">
+          <h2>{{ collection.name }}</h2>
+          <p>{{ collection.description }}</p>
+          <router-link :to="`/productos?category=${collection.slug}`" class="btn">
+            Ver categoría →
+          </router-link>
+        </div>
+
+      </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
 .collections-page {
-  max-width: 1400px;
-  margin: 2rem auto;
-  padding: 0 2rem;
+  width: 100%;
 }
 
-.collections-page h1 {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+.collection-block {
+  padding: 3.5rem 2rem;
+}
+.collection-block.alt-background {
+  background-color: #f8f8f8; 
+}
+
+.collection-content-wrapper {
+  max-width: 900px; 
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+.collection-content-wrapper.reverse-layout {
+  flex-direction: row-reverse;
+}
+
+.image-container, .text-container {
+  flex: 1;
+}
+
+.image-frame {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 30px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.image-frame img {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.text-container h2 {
+  font-size: 2.2rem;
   font-weight: 800;
-  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+.text-container p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
-.collections-grid {
-  display: grid;
-  /* Elige un número de columnas o deja que se ajuste automáticamente. 5 columnas: */
-  grid-template-columns: repeat(5, 1fr); 
-  gap: 2rem;
+.btn {
+  display: inline-block;
+  background-color: #000;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn:hover {
+  background-color: #333;
+  transform: translateY(-2px);
 }
 
-/* Para hacerlo responsivo en pantallas más pequeñas */
-@media (max-width: 1200px) {
-  .collections-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+/* --- ESTILOS RESPONSIVOS --- */
 @media (max-width: 992px) {
-  .collections-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .collection-content-wrapper,
+  .collection-content-wrapper.reverse-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .text-container {
+    text-align: center;
   }
 }
 @media (max-width: 768px) {
-  .collections-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .collection-block {
+    padding: 3rem 1.5rem;
   }
-}
-
-.collection-card {
-  text-decoration: none;
-  color: inherit;
-  transition: opacity 0.2s ease-in-out;
-}
-
-.collection-card:hover {
-  opacity: 0.8;
-}
-
-.collection-card img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
-}
-
-.collection-card p {
-  font-weight: 500;
-  font-size: 1rem;
+  .text-container h2 {
+    font-size: 2rem;
+  }
 }
 </style>

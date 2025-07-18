@@ -1,10 +1,7 @@
 <script setup>
-// Tu sección de <script> está perfecta y no necesita cambios.
-import { ref } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
 
 const cartStore = useCartStore();
-const specialInstructions = ref('');
 
 function sendOrderToWhatsApp() {
   if (!cartStore.selectedShippingOptionId) {
@@ -23,10 +20,6 @@ function sendOrderToWhatsApp() {
   message += `*Subtotal: ₡${cartStore.subtotal.toLocaleString('es-CR')}*\n`;
   message += `*Envío (${selectedOption.name}): ₡${cartStore.selectedShippingCost.toLocaleString('es-CR')}*\n`;
   message += `*Total Final: ₡${cartStore.totalPrice.toLocaleString('es-CR')} CRC*\n\n`;
-  if (specialInstructions.value.trim() !== '') {
-    message += `*Instrucciones Especiales:*\n`;
-    message += `${specialInstructions.value}\n`;
-  }
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
   window.open(whatsappUrl, '_blank');
@@ -97,10 +90,6 @@ function sendOrderToWhatsApp() {
           <span>₡{{ cartStore.totalPrice.toLocaleString('es-CR') }}</span>
         </div>
       </div>
-      <div class="cart-special-instructions">
-        <label for="special-instructions">Instrucciones especiales del pedido</label>
-        <textarea id="special-instructions" v-model="specialInstructions"></textarea>
-      </div>
       <button 
         @click="sendOrderToWhatsApp" 
         class="checkout-button-detailed"
@@ -115,6 +104,7 @@ function sendOrderToWhatsApp() {
 <style scoped>
 .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; }
 
+/* Contenedor Principal */
 .cart-drawer {
   position: fixed;
   top: 0;
@@ -132,22 +122,22 @@ function sendOrderToWhatsApp() {
 }
 .cart-drawer.is-open { transform: translateX(0); }
 
+/* Encabezado: Altura Fija */
 .cart-header {
   padding: 1.5rem;
   border-bottom: 1px solid #e5e5e5;
-  flex-shrink: 0; /* No se encoge */
+  flex-shrink: 0;
 }
 .cart-header h3 { margin: 0; font-weight: 700; font-size: 1.2rem; }
 .close-button { background: none; border: none; font-size: 0.9rem; color: #555; cursor: pointer; }
 
-/* --- EL CAMBIO CLAVE ESTÁ AQUÍ --- */
+/* Contenido (Lista de productos): Flexible y con Scroll */
 .cart-content {
-  padding: 1rem 1.5rem; /* Ajuste de padding */
-  flex-grow: 1;      /* Le dice que crezca y ocupe el espacio */
-  overflow-y: auto;  /* Su propio scroll si es necesario */
-  min-height: 0;     /* ¡LA LÍNEA MÁGICA! Permite que el contenedor se encoja correctamente */
+  padding: 1rem 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0; /* Solución clave para el layout */
 }
-
 .cart-empty { text-align: center; padding: 2rem; }
 .cart-empty a { color: #000; }
 .cart-items-detailed { list-style: none; padding: 0; margin: 0; }
@@ -161,11 +151,12 @@ function sendOrderToWhatsApp() {
 .item-quantity span { padding: 0 0.5rem; }
 .remove-item-button { background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer; padding: 0 0.5rem; }
 
+/* Pie de Página: Altura Fija */
 .cart-footer-detailed {
   padding: 1.5rem;
   border-top: 1px solid #e5e5e5;
   background-color: #f8f9fa;
-  flex-shrink: 0; /* No se encoge */
+  flex-shrink: 0;
 }
 .shipping-options h4 { font-size: 1rem; font-weight: 600; margin: 0 0 1rem 0; }
 .shipping-option { display: flex; margin-bottom: 0.5rem; }
@@ -174,12 +165,9 @@ function sendOrderToWhatsApp() {
 .shipping-option input[type="radio"]:checked + label { border-color: #000; box-shadow: 0 0 0 2px #000; }
 .option-name { font-weight: 500; }
 .option-price { font-weight: 600; }
-.cart-summary { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 1rem; border-top: 1px dashed #ccc; margin-top: 1.5rem; }
+.cart-summary { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 1.5rem; border-top: 1px dashed #ccc; margin-top: 1.5rem; }
 .summary-row { display: flex; justify-content: space-between; font-size: 0.9rem; }
 .summary-row.total { font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem; }
-.cart-special-instructions { margin-top: 1.5rem; }
-.cart-special-instructions label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
-.cart-special-instructions textarea { width: 100%; min-height: 60px; padding: 0.8rem; border: 1px solid #ccc; border-radius: 4px; }
 .checkout-button-detailed { margin-top: 1.5rem; width: 100%; padding: 1rem; background-color: #000; color: #fff; border: none; cursor: pointer; font-size: 1rem; font-weight: 500; border-radius: 4px; transition: background-color 0.2s, opacity 0.2s; }
 .checkout-button-detailed:disabled { background-color: #aaa; cursor: not-allowed; opacity: 0.7; }
 

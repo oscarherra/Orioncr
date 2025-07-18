@@ -2,7 +2,7 @@
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import ShoppingCart from './components/ShoppingCart.vue';
-import SearchOverlay from './components/SearchOverlay.vue'; // 1. Importa el panel
+import SearchOverlay from './components/SearchOverlay.vue'; 
 </script>
 
 <template>

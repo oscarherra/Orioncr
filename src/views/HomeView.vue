@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-container">
-    <h1>Bienvenido a Orion.cr</h1>
-    <p>Calidad y diseño en cada pin que creamos.</p>
+    <h1>Bienvenido a Orión.cr</h1>
+    <p>Pines y más para darle un toque único a tus chaquetas, bolsos y más.</p>
     <router-link to="/productos" class="cta-button">Ver Productos</router-link>
   </div>
 </template>

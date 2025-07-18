@@ -22,7 +22,7 @@ const isMobileMenuOpen = ref(false);
       </div>
 
       <div class="nav-section nav-center">
-        <router-link to="/" class="logo">Orion.cr</router-link>
+        <router-link to="/" class="logo">Orión.cr</router-link>
       </div>
 
       <div class="nav-section nav-right">

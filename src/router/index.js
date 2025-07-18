@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 // 1. Importa la nueva vista de inicio
 import HomeView from '@/views/HomeView.vue'; 
 import ProductosView from '@/views/ProductosView.vue';
-
 const routes = [
   {
     // 2. La ruta principal ahora muestra la bienvenida
