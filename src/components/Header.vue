@@ -34,7 +34,7 @@ const isMobileMenuOpen = ref(false);
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
           
-          <button @click="cartStore.toggleCart()" class="icon-button" aria-label="Carrito de compras">
+          <button @click="cartStore.toggleCart()" class="icon-button cart-icon-button" aria-label="Carrito de compras">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             <span v-if="cartStore.cartCount > 0" class="cart-count-badge">{{ cartStore.cartCount }}</span>
           </button>
@@ -51,12 +51,13 @@ const isMobileMenuOpen = ref(false);
 </template>
 
 <style scoped>
-/* --- Estilos Base --- */
 .site-header {
   background-color: #ffffff;
   border-bottom: 1px solid #e5e5e5;
-  padding: 0 1.5rem; 
-  position: relative; 
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 .main-nav {
   display: flex;
@@ -100,8 +101,6 @@ const isMobileMenuOpen = ref(false);
   gap: 1.2rem;
   margin-left: 1rem;
 }
-
-/* Estilo unificado para todos los botones de íconos */
 .icon-button {
   position: relative;
   background: none;
@@ -132,7 +131,6 @@ const isMobileMenuOpen = ref(false);
   display: none;
 }
 
-/* --- Estilos Responsivos para Móvil --- */
 @media (max-width: 992px) {
   .desktop-nav-links {
     display: none;

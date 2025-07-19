@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useHead } from '@vueuse/head'; // 1. Importa la herramienta de SEO
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
 
@@ -11,44 +12,34 @@ const cartStore = useCartStore();
 const productId = parseInt(route.params.id);
 const product = computed(() => productStore.getProductById(productId));
 
-// --- FUNCIÓN DE ANIMACIÓN DEFINITIVA ---
-function addProductToCart(product, event) {
+// --- NUEVO: LÓGICA DE SEO PARA ESTA PÁGINA ---
+useHead({
+  // El título cambiará según el nombre del producto
+  title: computed(() => {
+    return product.value ? `${product.value.name} | Orión.cr` : 'Producto no encontrado';
+  }),
+  // La descripción también cambiará dinámicamente
+  meta: [
+    {
+      name: 'description',
+      content: computed(() => {
+        return product.value ? `Compra el pin de ${product.value.name} en Orión.cr. Diseños exclusivos y envíos a toda Costa Rica.` : 'Pin no disponible.';
+      }),
+    },
+  ],
+});
+
+
+// --- FUNCIÓN DE ANIMACIÓN ---
+function addProductToCart(product) {
   cartStore.addItem(product);
-
-  const imageContainer = event.target.closest('.product-detail-container');
-  if (!imageContainer) return;
-  const originalImage = imageContainer.querySelector('img');
-  if (!originalImage) return;
   const cartIcon = document.querySelector('.cart-icon-button');
-  if (!cartIcon) return;
-
-  const imageRect = originalImage.getBoundingClientRect();
-  const clone = originalImage.cloneNode(true);
-  
-  clone.style.position = 'fixed';
-  clone.style.left = imageRect.left + 'px';
-  clone.style.top = imageRect.top + 'px';
-  clone.style.width = imageRect.width + 'px';
-  clone.style.height = imageRect.height + 'px';
-  clone.style.margin = '0';
-  clone.style.zIndex = '9999';
-  clone.style.borderRadius = '50%';
-  clone.style.transition = 'all 1s cubic-bezier(0.55, 0, 1, 0.45)';
-
-  document.body.appendChild(clone);
-
-  const cartRect = cartIcon.getBoundingClientRect();
-  setTimeout(() => {
-    clone.style.left = (cartRect.left + 10) + 'px';
-    clone.style.top = (cartRect.top + 10) + 'px';
-    clone.style.width = '0px';
-    clone.style.height = '0px';
-    clone.style.opacity = '0.5';
-  }, 10);
-
-  setTimeout(() => {
-    clone.remove();
-  }, 1000);
+  if (cartIcon) {
+    cartIcon.classList.add('pop-cart');
+    setTimeout(() => {
+      cartIcon.classList.remove('pop-cart');
+    }, 400);
+  }
 }
 </script>
 
@@ -68,7 +59,7 @@ function addProductToCart(product, event) {
         <button class="material-button selected">PIN</button>
       </div>
 
-      <button @click="addProductToCart(product, $event)" class="add-to-cart-main-button">
+      <button @click="addProductToCart(product)" class="add-to-cart-main-button">
         AÑADIR AL CARRITO
       </button>
     </div>
@@ -80,7 +71,7 @@ function addProductToCart(product, event) {
 </template>
 
 <style scoped>
-/* Tus estilos no necesitan cambios */
+/* Tus estilos no cambian */
 .product-detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 2rem auto; padding: 2rem; }
 .product-gallery { display: flex; justify-content: center; }
 .main-product-image { max-width: 100%; border-radius: 8px; }

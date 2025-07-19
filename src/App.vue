@@ -19,7 +19,7 @@ import SearchOverlay from './components/SearchOverlay.vue';
 </template>
 
 <style>
-/* Estilos globales */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap');
 
 * {
@@ -40,5 +40,14 @@ body {
 
 main {
   flex-grow: 1;
+}
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3) rotate(10deg); }
+  100% { transform: scale(1); }
+}
+
+.pop-cart {
+  animation: pop 0.4s ease-in-out;
 }
 </style>
