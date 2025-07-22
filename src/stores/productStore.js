@@ -86,7 +86,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 90, name: 'Pin Johnny Bravo', price: 1000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/JB.jpeg', import.meta.url).href },
     { id: 91, name: 'Pin Cobra Kai', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/cobra kai.jpeg', import.meta.url).href },
     { id: 92, name: 'Pin Jinx Corazón (Arcane)', price: 2000, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/jinx corazon.jpeg', import.meta.url).href },
-    { id: 93, name: 'Pin Jinx Dedos (Arcane)', price: 2000, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/jinx dedos.jpeg', import.meta.url).href },
+    { id: 93, name: 'Pin Jinx (Arcane)', price: 2000, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/jinx dedos.jpeg', import.meta.url).href },
     { id: 94, name: 'Pin Jinx Was Here (Arcane)', price: 1500, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/jinx was here.jpeg', import.meta.url).href },
     { id: 95, name: 'Pin Zenitsu y Nezuko (Demon Slayer)', price: 2000, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/kimetsu personajes.jpeg', import.meta.url).href },
     { id: 96, name: 'Pin Harry Potter Escoba', price: 1500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/hp escoba guindado.jpeg', import.meta.url).href },
