@@ -39,7 +39,46 @@ p {
   transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
-  background-color: #333;
+/* ... (tu CSS de .welcome-container, etc.) ... */
+
+/* Añadimos la animación */
+h1 {
+  /* ... (tus otros estilos de h1) ... */
+  animation: fadeInDown 1s ease-out;
+}
+
+p {
+  /* ... (tus otros estilos de p) ... */
+  animation: fadeInDown 1s ease-out 0.3s; /* 0.3s de retraso */
+  animation-fill-mode: both; /* Mantiene el estado inicial antes de la animación */
+}
+
+.cta-button {
+  /* ... (tus otros estilos del botón) ... */
+  animation: fadeInUp 1s ease-out 0.6s; /* 0.6s de retraso */
+  animation-fill-mode: both;
+}
+
+/* Definición de las animaciones */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
