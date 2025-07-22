@@ -19,7 +19,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 21, name: 'Pin Gato Blanco Bolsita', price: 1000, category: 'gatos', salePrice: null, imageUrl: new URL('../assets/img/gato blanco bolsa.jpeg', import.meta.url).href },
     { id: 22, name: 'Pin Ballena meme', price: 500, category: 'humor', salePrice: null, imageUrl: new URL('../assets/img/ballena meme.jpeg', import.meta.url).href },
     { id: 23, name: 'Pin Pócima Felices para Siempre (Shrek)', price: 1000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/pocima shrek.jpeg', import.meta.url).href },
-    { id: 24, name: 'Pin Pócima Hufflepuff (Harry Potter)', price: 1000, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/pocima hufflepuff.jpeg', import.meta.url).href },
+    { id: 24, name: 'Pin Pócima Hufflepuff (Harry Potter)', price: 1000, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Pocima hufflepuff.jpeg', import.meta.url).href },
     { id: 25, name: 'Pin Pócima Slytherin (Harry Potter)', price: 1000, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Pocima Sletheryn.jpeg', import.meta.url).href },
     { id: 26, name: 'Pin Pócima Ravenclaw (Harry Potter)', price: 1000, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/pocima ravenclaw.jpeg', import.meta.url).href },
     { id: 27, name: 'Pin Pócima Gryffindor (Harry Potter)', price: 1500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/pocima gryffindor.jpeg', import.meta.url).href },
