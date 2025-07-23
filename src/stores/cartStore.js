@@ -71,6 +71,21 @@ export const useCartStore = defineStore('cart', () => {
       removeItem(productId);
     }
   }
+  function addProductToCart(product) {
+  // Si el producto está agotado, la función se detiene aquí.
+  if (product.soldOut) return;
+
+  // El resto del código solo se ejecuta si el producto NO está agotado.
+  cartStore.addItem(product);
+  
+  const cartIcon = document.querySelector('.cart-icon-button');
+  if (cartIcon) {
+    cartIcon.classList.add('pop-cart');
+    setTimeout(() => {
+      cartIcon.classList.remove('pop-cart');
+    }, 400);
+  }
+}
   
   // --- GUARDAR ESTADO EN LOCALSTORAGE ---
   watch(items, (newItems) => {

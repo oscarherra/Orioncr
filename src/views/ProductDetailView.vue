@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useHead } from '@vueuse/head'; // 1. Importa la herramienta de SEO
+import { useHead } from '@vueuse/head';
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
 
@@ -12,13 +12,10 @@ const cartStore = useCartStore();
 const productId = parseInt(route.params.id);
 const product = computed(() => productStore.getProductById(productId));
 
-// --- NUEVO: LÓGICA DE SEO PARA ESTA PÁGINA ---
 useHead({
-  // El título cambiará según el nombre del producto
   title: computed(() => {
     return product.value ? `${product.value.name} | Orión.cr` : 'Producto no encontrado';
   }),
-  // La descripción también cambiará dinámicamente
   meta: [
     {
       name: 'description',
@@ -32,6 +29,9 @@ useHead({
 
 // --- FUNCIÓN DE ANIMACIÓN ---
 function addProductToCart(product) {
+  // MODIFICADO: Añadimos la verificación de producto agotado
+  if (product.soldOut) return;
+
   cartStore.addItem(product);
   const cartIcon = document.querySelector('.cart-icon-button');
   if (cartIcon) {
@@ -59,8 +59,13 @@ function addProductToCart(product) {
         <button class="material-button selected">PIN</button>
       </div>
 
-      <button @click="addProductToCart(product)" class="add-to-cart-main-button">
-        AÑADIR AL CARRITO
+      <button 
+        @click="addProductToCart(product)" 
+        :disabled="product.soldOut" 
+        class="add-to-cart-main-button"
+      >
+        <span v-if="product.soldOut">AGOTADO</span>
+        <span v-else>AÑADIR AL CARRITO</span>
       </button>
     </div>
   </div>
@@ -86,6 +91,13 @@ function addProductToCart(product) {
 .add-to-cart-main-button { width: 100%; padding: 1rem; background-color: #333; color: #fff; border: none; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background-color 0.2s; }
 .add-to-cart-main-button:hover { background-color: #000; }
 .not-found { text-align: center; padding: 5rem; }
+
+/* MODIFICADO: Añadimos el estilo para el botón deshabilitado */
+.add-to-cart-main-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
 @media (max-width: 992px) { .product-detail-container { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; } .product-gallery { grid-row: 1; } .product-info { text-align: center; } .breadcrumbs { justify-content: center; } .material-selection { display: flex; flex-direction: column; align-items: center; } .add-to-cart-main-button { max-width: 400px; margin: 0 auto; } }
 @media (max-width: 480px) { .product-info h1 { font-size: 2rem; } .price { font-size: 1.6rem; } .product-detail-container { padding: 1rem; } }
 </style>
