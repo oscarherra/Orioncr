@@ -42,7 +42,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 44, name: 'Pin Mapache Dysfunctional', price: 1500, category: 'humor', salePrice: null, imageUrl: new URL('../assets/img/mapache disfuncional.jpeg', import.meta.url).href },
     { id: 45, name: 'Pin Recreo', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Recreo.jpeg', import.meta.url).href },
     { id: 46, name: 'Pin Aang (El Avatar: la leyenda de Aang)', price: 2000, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/aang.jpeg', import.meta.url).href },
-    { id: 47, name: 'Pin Libro 3 (Gravity Falls)', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Libro 3.jpeg', import.meta.url).href },
+    { id: 47, name: 'Pin Libro 3 (Gravity Falls)', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Libro 3.jpeg', import.meta.url).href, soldOut: true },
     { id: 48, name: 'Pin Pato (Gravity Falls)', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Pato.jpeg', import.meta.url).href },
     { id: 49, name: 'Pin Bubble Tea-My Melody (Sanrio)', price: 1500, category: 'sanrio', salePrice: null, imageUrl: new URL('../assets/img/Bubble tea my melody.jpeg', import.meta.url).href },
     { id: 50, name: 'Pin Bubble Tea-Pompompurin (Sanrio)', price: 1500, category: 'sanrio', salePrice: null, imageUrl: new URL('../assets/img/Bubble tea pompompuri.jpeg', import.meta.url).href },
