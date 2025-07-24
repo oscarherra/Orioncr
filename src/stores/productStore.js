@@ -92,7 +92,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 96, name: 'Pin Harry Potter Escoba', price: 1500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/hp escoba guindado.jpeg', import.meta.url).href },
     { id: 97, name: 'Pin Harry Potter y Castillo de Hogwarts', price: 1500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/HP Castillo.jpeg', import.meta.url).href },
     { id: 100, name: 'Pin Gato Alas Moradas', price: 1500, category: 'gatos', salePrice: null, imageUrl: new URL('../assets/img/gato alas moradas.jpeg', import.meta.url).href },
-    { id: 103, name: 'Pin Draco Colgante (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Draco escoba.jpeg', import.meta.url).href },
+    { id: 103, name: 'Pin Draco Colgante (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Draco escoba.jpeg', import.meta.url).href, soldOut: true },
     { id: 104, name: 'Pin Harry Colgante (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/HP en escoba.jpeg', import.meta.url).href },
     { id: 105, name: 'Pin Ron Colgante (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Ron escoba.jpeg', import.meta.url).href },
     { id: 106, name: 'Pin Hermione Colgante (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Hermione escoba.jpeg', import.meta.url).href },
