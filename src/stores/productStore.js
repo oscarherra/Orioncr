@@ -80,7 +80,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 83, name: 'Pin Libro de Alicia', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/alicia libro.jpeg', import.meta.url).href },
     { id: 84, name: 'Pin Tony Tony Chopper (One Piece)', price: 1500, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/tony op.jpeg', import.meta.url).href },
     { id: 86, name: 'Pin Barco (One Piece)', price: 2000, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/barco one piece.jpeg', import.meta.url).href },
-    { id: 87, name: 'Pin Fruta Gomu Gomu (One Piece)', price: 2500, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/Gomu gomu.jpeg', import.meta.url).href },
+    { id: 87, name: 'Pin Fruta Gomu Gomu (One Piece)', price: 2500, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/Gomu gomu.jpeg', import.meta.url).href, soldOut: true },
     { id: 88, name: 'Pin Stormtrooper Circular (Star Wars)', price: 1500, category: 'star-wars', salePrice: null, imageUrl: new URL('../assets/img/starwar circular.jpeg', import.meta.url).href },
     { id: 89, name: 'Pin Stormtrooper Grande (Star Wars)', price: 1500, category: 'star-wars', salePrice: null, imageUrl: new URL('../assets/img/starwars grande.jpeg', import.meta.url).href },
     { id: 90, name: 'Pin Johnny Bravo', price: 1000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/JB.jpeg', import.meta.url).href },
@@ -109,7 +109,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 118, name: 'Pin Social Mood Arcoiris', price: 2500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/social mood arcoiris.jpeg', import.meta.url).href },
     { id: 119, name: 'Pin Hora de Aventura', price: 2500, category: 'hora-de-aventura', salePrice: null, imageUrl: new URL('../assets/img/Hora de Aventura.jpeg', import.meta.url).href },
      { id: 120, name: 'Pin Escudo Hogwarts (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Escudo hogwarts.jpeg', import.meta.url).href, soldOut: true },{ id: 121, name: 'Pin Escudo Hufflepuff (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/hufflepuff escudo.jpeg', import.meta.url).href },
-    { id: 122, name: 'Pin Escudo Gryffindor (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Gryffindor escudo.jpeg', import.meta.url).href },
+    { id: 122, name: 'Pin Escudo Gryffindor (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Gryffindor escudo.jpeg', import.meta.url).href, soldOut: true },
     { id: 123, name: 'Pin Escudo Ravenclaw (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Ravenclaw escudo.jpeg', import.meta.url).href },
     { id: 124, name: 'Pin Escudo Slytherin (Harry Potter)', price: 2500, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Slytherin escudo.jpeg', import.meta.url).href },
     { id: 125, name: 'Pin Sombrero (Harry Potter)', price: 1000, category: 'harry-potter', salePrice: null, imageUrl: new URL('../assets/img/Sombre hp.jpeg', import.meta.url).href },
@@ -150,7 +150,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 160, name: 'Pin Miyagi-Do', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Miyagi do.jpeg', import.meta.url).href },
     { id: 161, name: 'Pin Taza The Office', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Taza the office.jpeg', import.meta.url).href },
     { id: 162, name: 'Pin Pi π', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Pi.jpeg', import.meta.url).href },
-    { id: 163, name: 'Pin Cosmocon', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Cosmocon.jpeg', import.meta.url).href },
+    { id: 163, name: 'Pin Cosmocon', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Cosmocon.jpeg', import.meta.url).href, soldOut: true },
     { id: 164, name: 'Pin Perry el Ornitorrinco', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Perry.jpeg', import.meta.url).href },
     { id: 165, name: 'Pin Fruta (One Piece)', price: 1500, category: 'anime', salePrice: null, imageUrl: new URL('../assets/img/Fruta one piece gris.jpeg', import.meta.url).href },
     { id: 166, name: 'Pin Psicología Circular', price: 1500, category: 'psicologia', salePrice: null, imageUrl: new URL('../assets/img/Psicologia.jpeg', import.meta.url).href },
@@ -167,7 +167,7 @@ export const useProductStore = defineStore('products', () => {
     { id: 177, name: 'Pin Monsters, Inc.', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Mounster INC.jpeg', import.meta.url).href },
     { id: 178, name: 'Pin Monsters, Inc.', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Mounster INC circular.jpeg', import.meta.url).href },
     { id: 179, name: 'Pin Puerta Monster, Inc.', price: 2000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Mounster INC puerta.jpeg', import.meta.url).href },
-    { id: 180, name: 'Pin Mike y Sullivan (Monsters, Inc.)', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Mounster INC arrecostados.jpeg', import.meta.url).href },
+    { id: 180, name: 'Pin Mike y Sullivan (Monsters, Inc.)', price: 1500, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/Mounster INC arrecostados.jpeg', import.meta.url).href, soldOut: true },
     { id: 181, name: 'Pin Piña', price: 1000, category: 'otros', salePrice: null, imageUrl: new URL('../assets/img/piña.jpeg', import.meta.url).href }
   ]);
   
