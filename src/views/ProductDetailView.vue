@@ -51,7 +51,7 @@ function addProductToCart(product) {
     <div class="product-info">
       <p class="breadcrumbs">Inicio • Productos • {{ product.name }}</p>
       <h1>{{ product.name }}</h1>
-      <span class="vendor">GALLO PIN</span>
+      <span class="vendor">Orión CR</span>
       <p class="price">₡{{ (product.salePrice || product.price).toLocaleString('es-CR') }}</p>
       
       <div class="material-selection">
